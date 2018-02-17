@@ -5,7 +5,7 @@
 class main
 {
     public:
-        main();
+        main(int argc, char* args[]);
         virtual ~main();
 
     protected:

@@ -5,7 +5,7 @@
 class menu
 {
     public:
-        menu()
+        menu();
         virtual ~menu();
         int displayMenu(SDL_Surface* window, TTF_Font* font);
     protected:

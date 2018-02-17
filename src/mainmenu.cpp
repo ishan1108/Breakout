@@ -23,10 +23,6 @@ int menu::displayMenu(SDL_Surface* window, TTF_Font* font){
     bool isSelected[OPTIONS] = {0,0,0};
     SDL_Color color[2] = {{255,0,0},{0,255,0}};
 
-    MENU_ITEMS[0] = TTF_RenderText_Solid(font,MENU_OPTIONS[0],color[0]);
-    MENU_ITEMS[1] = TTF_RenderText_Solid(font,MENU_OPTIONS[1],color[0]);
-    MENU_ITEMS[2] = TTF_RenderText_Solid(font,MENU_OPTIONS[2],color[0]);
-
     SDL_Rect position[OPTIONS];
     position[0].x = 200;
     position[0].y = 100;
@@ -35,6 +31,9 @@ int menu::displayMenu(SDL_Surface* window, TTF_Font* font){
     position[2].x = 400;
     position[2].y = 100;
 
+    MENU_ITEMS[0] = TTF_RenderText_Solid(font,MENU_OPTIONS[0],color[0]);
+    SDL_BlitSurface(MENU_ITEMS[0],NULL,window,NULL);
+    SDL_FreeSurface(MENU_ITEMS[0]);
     return 0;
 
 }
