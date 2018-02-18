@@ -24,16 +24,20 @@ int main(int argc, char* args[]){
                                           SDL_WINDOW_SHOWN);
 
     surface = SDL_GetWindowSurface(window);
-
-    TTF_Font* font = TTF_OpenFont("../fonts/SIXTY.TTF", 15);
+    TTF_Font* font = TTF_OpenFont("./fonts/SIXTY.TTF", 35);
     if(!font){
-        std::cout << "TTF_Openfont error : %s\n", TTF_GetError();
+        std::cout << "TTF_Openfont error" << TTF_GetError();
         return 0;
     }
     menu mainMenu = menu();
 
     while(1){
-	mainMenu.displayMenu(surface,font);
+        int i = mainMenu.displayMenu(window,surface,font);
+
+        if(i == 0)
+        {
+            SDL_Quit();
+        }
     }
     SDL_Quit();
     return 0;
