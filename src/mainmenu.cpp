@@ -27,6 +27,12 @@ int menu::displayPauseMenu(SDL_Window* window, SDL_Surface* surface,TTF_Font* fo
     return i;
 }
 
+int menu::displaySettingsMenu(SDL_Window* window, SDL_Surface* surface,TTF_Font* font)
+{
+    const int OPTIONS = 2;
+    int i = getMenuOptions(window,surface,font,OPTIONS);
+}
+
 int menu::getMenuOptions(SDL_Window* window, SDL_Surface* surface, TTF_Font* font, const int OPTIONS)
 {
     Uint32 time;
@@ -39,7 +45,7 @@ int menu::getMenuOptions(SDL_Window* window, SDL_Surface* surface, TTF_Font* fon
     if(OPTIONS==3)
     {
         MENU_OPTIONS[0] = "Play";
-        MENU_OPTIONS[1] = "Settings";
+        MENU_OPTIONS[1] = "Language";
         MENU_OPTIONS[2] = "Exit";
         for(int i =0; i < OPTIONS; ++i)
         {
@@ -55,7 +61,7 @@ int menu::getMenuOptions(SDL_Window* window, SDL_Surface* surface, TTF_Font* fon
     else if(OPTIONS==4)
     {
         MENU_OPTIONS[0] = "Play";
-        MENU_OPTIONS[1] = "Settings";
+        MENU_OPTIONS[1] = "Language";
         MENU_OPTIONS[2] = "Exit";
         MENU_OPTIONS[3] = "Resume";
         for(int i =0; i < OPTIONS; ++i)
@@ -68,6 +74,20 @@ int menu::getMenuOptions(SDL_Window* window, SDL_Surface* surface, TTF_Font* fon
         position[1].y = 300;
         position[2].y = 350;
         position[3].y = 200;
+    }
+
+    else if (OPTIONS == 2)
+    {
+        MENU_OPTIONS[0] = "English";
+        MENU_OPTIONS[1] = "Hindi";
+        for(int i =0; i < OPTIONS; ++i)
+        {
+            isSelected[i] = 0;
+            position[i].x = 200;
+            MENU_ITEMS[i] = TTF_RenderText_Solid(font,MENU_OPTIONS[i],color[0]);
+        }
+        position[0].y = 300;
+        position[1].y = 350;
     }
 
     SDL_FillRect(surface,&surface->clip_rect,SDL_MapRGB(surface->format, 0x00,0x00,0x00));
