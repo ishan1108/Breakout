@@ -2,7 +2,7 @@
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_ttf.h"
 #include "string"
-
+#include <iostream>
 menu::menu()
 {
 
@@ -13,27 +13,62 @@ menu::~menu()
     //dtor
 }
 
-int menu::displayMenu(SDL_Window* window, SDL_Surface* surface, TTF_Font* font){
+int menu::displayMenu(SDL_Window* window, SDL_Surface* surface, TTF_Font* font)
+{
+    const int OPTIONS = 3;
+    int i = getMenuOptions(window, surface,font,OPTIONS);
+    return i;
+}
 
+int menu::displayPauseMenu(SDL_Window* window, SDL_Surface* surface,TTF_Font* font)
+{
+    const int OPTIONS = 4;
+    int i = getMenuOptions(window,surface,font,OPTIONS);
+    return i;
+}
+
+int menu::getMenuOptions(SDL_Window* window, SDL_Surface* surface, TTF_Font* font, const int OPTIONS)
+{
     Uint32 time;
     int x,y;
-    const int OPTIONS = 3;
-    const char* MENU_OPTIONS[OPTIONS] = {"Play","Settings","Exit"};
-    SDL_Surface* MENU_ITEMS[OPTIONS];
-    bool isSelected[OPTIONS] = {0,0,0};
     SDL_Color color[2] = {{255,0,0},{0,255,0}};
-
     SDL_Rect position[OPTIONS];
-    position[0].x = 200;
-    position[0].y = 250;
-    position[1].x = 200;
-    position[1].y = 300;
-    position[2].x = 200;
-    position[2].y = 350;
+    SDL_Surface* MENU_ITEMS[OPTIONS];
+    bool isSelected[OPTIONS];
+    const char* MENU_OPTIONS[OPTIONS];
+    if(OPTIONS==3)
+    {
+        MENU_OPTIONS[0] = "Play";
+        MENU_OPTIONS[1] = "Settings";
+        MENU_OPTIONS[2] = "Exit";
+        for(int i =0; i < OPTIONS; ++i)
+        {
+            isSelected[i] = 0;
+            position[i].x = 200;
+            MENU_ITEMS[i] = TTF_RenderText_Solid(font,MENU_OPTIONS[i],color[0]);
+        }
+        position[0].y = 250;
+        position[1].y = 300;
+        position[2].y = 350;
+    }
 
-    MENU_ITEMS[0] = TTF_RenderText_Solid(font,MENU_OPTIONS[0],color[0]);
-    MENU_ITEMS[1] = TTF_RenderText_Solid(font,MENU_OPTIONS[1],color[1]);
-    MENU_ITEMS[2] = TTF_RenderText_Solid(font,MENU_OPTIONS[2],color[2]);
+    else if(OPTIONS==4)
+    {
+        MENU_OPTIONS[0] = "Play";
+        MENU_OPTIONS[1] = "Settings";
+        MENU_OPTIONS[2] = "Exit";
+        MENU_OPTIONS[3] = "Resume";
+        for(int i =0; i < OPTIONS; ++i)
+        {
+            isSelected[i] = 0;
+            position[i].x = 200;
+            MENU_ITEMS[i] = TTF_RenderText_Solid(font,MENU_OPTIONS[i],color[0]);
+        }
+        position[0].y = 250;
+        position[1].y = 300;
+        position[2].y = 350;
+        position[3].y = 200;
+    }
 
     SDL_FillRect(surface,&surface->clip_rect,SDL_MapRGB(surface->format, 0x00,0x00,0x00));
     SDL_Event e;
@@ -81,7 +116,7 @@ int menu::displayMenu(SDL_Window* window, SDL_Surface* surface, TTF_Font* font){
                 case SDL_MOUSEBUTTONDOWN:
                     x = e.button.x;
                     y = e.button.y;
-                    for(int i = 0; i < OPTIONS; ++i)
+                    for(int i = 0; i < OPTIONS; i++)
                     {
                         if(x >= position[i].x && x <= position[i].x + position[i].w
                         && y >= position[i].y && y <= position[i].y + position[i].h)
@@ -92,16 +127,16 @@ int menu::displayMenu(SDL_Window* window, SDL_Surface* surface, TTF_Font* font){
                             }
                             return i;
                         }
-                    break;
                     }
+                break;
                 case SDL_KEYDOWN:
-                    if(e.key.keysym.sym==SDLK_ESCAPE)
+                    if(e.key.keysym.sym==SDLK_ESCAPE || e.key.keysym.sym==SDLK_q)
                     {
                         for(int i = 0; i < OPTIONS;++i)
-                            {
-                                SDL_FreeSurface(MENU_ITEMS[i]);
-                            }
-                        return 0;
+                        {
+                            SDL_FreeSurface(MENU_ITEMS[i]);
+                        }
+                        return 2;
                     }
             }
         }
@@ -109,14 +144,18 @@ int menu::displayMenu(SDL_Window* window, SDL_Surface* surface, TTF_Font* font){
         {
             SDL_BlitSurface(MENU_ITEMS[i], NULL, surface, &position[i]);
         }
-
+        delay(time);
         SDL_UpdateWindowSurface(window);
-        if(1000/30 > (SDL_GetTicks() - time))
+
+    }
+    return 0;
+}
+
+void menu::delay(Uint32 time)
+{
+    if(1000/30 > (SDL_GetTicks() - time))
         {
             SDL_Delay(1000/30 - (SDL_GetTicks() - time));
         }
-    }
-
-    return 0;
-
 }
+
