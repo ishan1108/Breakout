@@ -15,9 +15,11 @@
 					<Add option="-g" />
 					<Add directory="/home/ishan/Github/Breakout/src" />
 					<Add directory="/home/ishan/Github/Breakout/include" />
+					<Add directory="include" />
+					<Add directory="assets" />
 				</Compiler>
 				<Linker>
-					<Add option="-lSDL2 -lSDL2_ttf -lSDL2main" />
+					<Add option="-lSDL2_image -lSDL2  -lSDL2_ttf  -lSDL2main" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -27,6 +29,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add directory="include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -36,8 +39,16 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="include/Brick.h" />
+		<Unit filename="include/Game.h" />
+		<Unit filename="include/Racket.h" />
+		<Unit filename="include/Score.h" />
 		<Unit filename="include/main.h" />
 		<Unit filename="include/menu.h" />
+		<Unit filename="src/Brick.cpp" />
+		<Unit filename="src/Game.cpp" />
+		<Unit filename="src/Racket.cpp" />
+		<Unit filename="src/Score.cpp" />
 		<Unit filename="src/main.cpp" />
 		<Unit filename="src/mainmenu.cpp" />
 		<Extensions>
