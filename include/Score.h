@@ -11,7 +11,7 @@ class Score
         ~Score();
         int score;
         int level;
-        void updateScore(SDL_Window* window, SDL_Surface* surface, TTF_Font* font);
+        void updateScore(SDL_Renderer* renderer, TTF_Font* font);
 
     protected:
 

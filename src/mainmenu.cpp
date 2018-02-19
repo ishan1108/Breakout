@@ -31,6 +31,7 @@ int menu::displaySettingsMenu(SDL_Window* window, SDL_Surface* surface,TTF_Font*
 {
     const int OPTIONS = 2;
     int i = getMenuOptions(window,surface,font,OPTIONS);
+    return i;
 }
 
 int menu::getMenuOptions(SDL_Window* window, SDL_Surface* surface, TTF_Font* font, const int OPTIONS)

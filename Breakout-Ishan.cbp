@@ -39,12 +39,14 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="include/Ball.h" />
 		<Unit filename="include/Brick.h" />
 		<Unit filename="include/Game.h" />
 		<Unit filename="include/Racket.h" />
 		<Unit filename="include/Score.h" />
 		<Unit filename="include/main.h" />
 		<Unit filename="include/menu.h" />
+		<Unit filename="src/Ball.cpp" />
 		<Unit filename="src/Brick.cpp" />
 		<Unit filename="src/Game.cpp" />
 		<Unit filename="src/Racket.cpp" />

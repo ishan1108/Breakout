@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "menu.h"
 #include "Score.h"
+#include "Racket.h"
 #include <iostream>
 
 
@@ -9,7 +10,6 @@ Game::Game()
     window = NULL;
     renderer = NULL;
     surface = NULL;
-    s = Score();
     mainMenu = menu();
     font = NULL;
     SCREEN_HEIGHT = 640;
@@ -57,15 +57,24 @@ void Game::NewGame()
 
     else if(i == 2)     SDL_Quit();
     racket = new Racket(renderer);
-    while(gameRunning)
-    {
+    s = new Score();
 
-        racket->renderRacket(renderer);
-        SDL_RenderPresent(renderer);
+    if(gameRunning)
+    {
+        Render();
         SDL_Delay(5000);
-        break;
     }
 
     SDL_Quit();
 
+}
+
+void Game::Render()
+{
+    SDL_RenderClear(renderer);
+
+    racket->renderRacket(renderer);
+    s->updateScore(renderer,font);
+
+    SDL_RenderPresent(renderer);
 }

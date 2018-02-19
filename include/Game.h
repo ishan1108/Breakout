@@ -17,7 +17,7 @@ class Game
         SDL_Surface* surface;
         SDL_Renderer* renderer;
         TTF_Font* font;
-        Score s;
+        Score* s;
         Racket* racket;
         menu mainMenu = menu();
 
@@ -25,6 +25,8 @@ class Game
         bool Init();
 
         void NewGame();
+
+        void Render();
 
     protected:
 
