@@ -19,7 +19,7 @@ void Score::updateScore(SDL_Renderer* renderer, TTF_Font* font)
     SDL_Color color = {0,30,255};
     const char* current[2];
     current[0] = "Level :";
-    current[1] = "Score :";
+    current[1] = "Score :" + ;
     SDL_Texture* scoreTexture[2];
     SDL_Rect position[2];
     position[0].x = 10;
